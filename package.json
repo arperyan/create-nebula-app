@@ -1,0 +1,18 @@
+{
+    "name": "create-nebula-app",
+    "version": "1.0.0",
+    "description": "Create Nebula apps",
+    "main": "src/index.js",
+    "bin": "bin/create-nebula-app.js",
+    "scripts": {
+        "start": "node bin/create-nebula-app.js"
+    },
+    "author": "Ryan Arpe",
+    "license": "MIT",
+    "dependencies": {
+        "glob": "^7.2.0",
+        "inquirer": "^8.2.0",
+        "ncp": "^2.0.0",
+        "shelljs": "^0.8.4"
+    }
+}
