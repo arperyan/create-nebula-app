@@ -37,12 +37,6 @@ const templates = fs.readdirSync(path.join(__dirname, "../templates")).sort();
             choices: ["saas", "desktop"],
             default: "saas",
         },
-        {
-            type: "input",
-            message: "Theme Color:",
-            name: "theme",
-            default: "#00B4AB",
-        },
     ]);
 
     builder({

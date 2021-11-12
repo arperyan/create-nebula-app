@@ -21,7 +21,7 @@ const templateFile = (fileName, replacements) => {
 //   - css: CSS framework
 //   - port: Port to run the project on
 
-module.exports = async ({ language, framework, name, environment, theme }) => {
+module.exports = async ({ language, framework, name, environment }) => {
     const lang = language === "typescript" ? "ts" : "js";
 
     const replacements = {
@@ -39,8 +39,6 @@ module.exports = async ({ language, framework, name, environment, theme }) => {
     // replacements.CONTAINER = tailwind
     //   ? "mt-10 text-3xl mx-auto max-w-6xl"
     //   : "container";
-
-    replacements.THEME = theme;
 
     glob.sync(`${name}/**/*`).forEach((file) => {
         if (fs.lstatSync(file).isFile()) {
