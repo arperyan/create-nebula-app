@@ -27,7 +27,7 @@ const templates = fs.readdirSync(path.join(__dirname, "../templates")).sort();
             type: "list",
             message: "Language:",
             name: "language",
-            choices: ["javascript", "typescript"],
+            choices: ["javascript (WIP)", "typescript"],
             default: "javascript",
         },
         {
