@@ -1,0 +1,27 @@
+{
+    "name": "create-vue",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc --noEmit && vite build",
+        "serve": "vite preview"
+    },
+    "dependencies": {
+        "@nebula.js/sn-bar-chart": "^1.11.2",
+        "@nebula.js/stardust": "^2.0.0",
+        "enigma.js": "^2.7.3",
+        "qlik-saas-web-auth": "^0.0.2",
+        "vue": "^3.2.16"
+    },
+    "devDependencies": {
+        "@types/enigma.js": "^2.2.2",
+        "@types/qlik-engineapi": "^12.67.10",
+        "@vitejs/plugin-vue": "^1.9.3",
+        "postcss": "^8.3.11",
+        "postcss-load-config": "^3.1.0",
+        "postcss-preset-env": "^7.0.0",
+        "typescript": "^4.4.3",
+        "vite": "^2.6.4",
+        "vue-tsc": "^0.3.0"
+    }
+}
