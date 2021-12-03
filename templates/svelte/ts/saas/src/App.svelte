@@ -1,28 +1,38 @@
 <script lang="ts">
-    import { QlikComponent } from "./lib/function/qlikSaas";
-    import NebulaBar from "./lib/NebulaBar.svelte";
-    import Spinnner from "./lib/UI/spinnner.svelte";
-    import type { Nebula, QlikInstance } from "../../base/src/types";
+    import enigma from "enigma.js";
+    import schema from "enigma.js/schemas/12.67.2.json";
+    import { QlikSaaSConnection } from "qlik-saas-web-auth";
+    import { config } from "./config.sample";
+    import { NebulaCharts } from "./lib/util/nebulaCharts";
+    import NebulaBar from "./lib/components/NebulaBar.svelte";
+    import Spinnner from "./lib/ui/spinnner.svelte";
+    import type { NebulaChart } from "./types";
+    import NebulaSelection from "./lib/components/NebulaSelection.svelte";
 
-    let fields = [`Valuelist("Dim1")`, `=sum(10)`];
-    let qlikInstance: QlikComponent;
+    let qlikInstance: EngineAPI.IApp;
 
-    const getQlikInstance = async (): Promise<Nebula> => {
-        qlikInstance = new QlikComponent();
-        console.log(await qlikInstance.chart());
-        return await qlikInstance.chart();
+    const qlik: QlikSaaSConnection = new QlikSaaSConnection(
+        {
+            webIntegrationId: config.qlikWebIntegrationId,
+            tenantDomain: config.tenantDomain,
+        },
+        enigma,
+        schema
+    );
+
+    const establishConnection = async (): Promise<NebulaChart> => {
+        qlikInstance = await qlik.connectAndOpenDoc(config.appId);
+        const nebulaComponent = new NebulaCharts(qlik.app);
+        return nebulaComponent.chart();
     };
-
-    let promise: Promise<QlikInstance> = getQlikInstance().then((nebula) => {
-        return { nebula, app: qlikInstance.app };
-    });
 </script>
 
 <main>
-    {#await promise}
+    {#await establishConnection()}
         <Spinnner />
-    {:then data}
-        <NebulaBar nebula={data.nebula} app={data.app} {fields} />
+    {:then nebulaInstance}
+        <NebulaSelection nebula={nebulaInstance} />
+        <NebulaBar nebula={nebulaInstance} app={qlikInstance} />
     {/await}
 </main>
 
@@ -31,7 +41,6 @@
     :root {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     }
-
     main {
         text-align: center;
         padding: 1em;

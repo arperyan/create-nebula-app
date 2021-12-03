@@ -14,7 +14,7 @@ const templates = fs.readdirSync(path.join(__dirname, "../templates")).sort();
             type: "input",
             message: "Pick the name of your app:",
             name: "name",
-            default: "host",
+            default: "my-app",
         },
         {
             type: "list",
@@ -49,7 +49,7 @@ Next steps:
 
 ▶️ cd ${answers.name}
 ▶️ npm install
-▶️ update the src/config file
+▶️ update the src/config.sample file 
 ▶️ npm run dev
 `);
 })();

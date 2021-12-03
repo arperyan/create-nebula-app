@@ -20,7 +20,6 @@
     }
 
     .spinner-container {
-        display: inline-block;
         display: flex;
         align-self: center;
         width: 50px;

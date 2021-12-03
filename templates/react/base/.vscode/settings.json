@@ -1,0 +1,19 @@
+{
+    "workbench.colorCustomizations": {
+        "titleBar.activeForeground": "#000",
+        "titleBar.inactiveForeground": "#000000CC",
+        "titleBar.activeBackground": "#3aeb34",
+        "titleBar.inactiveBackground": "#3aeb34cc"
+    },
+    "editor.formatOnSave": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "cSpell.words": ["sveltejs"]
+}
