@@ -1,24 +1,24 @@
 {
-  "name": "create-vanilla",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "serve": "vite preview"
-  },
-  "devDependencies": {
-    "@types/enigma.js": "^2.2.2",
-    "@types/qlik-engineapi": "^12.67.10",
-    "postcss": "^8.4.0",
-    "postcss-load-config": "^3.1.0",
-    "postcss-preset-env": "^7.0.1",
-    "typescript": "^4.3.2",
-    "vite": "^2.6.4"
-  },
-  "dependencies": {
-    "@nebula.js/sn-bar-chart": "^1.12.12",
-    "@nebula.js/stardust": "^2.2.0",
-    "enigma.js": "^2.7.3",
-    "qlik-saas-web-auth": "^0.0.2"
-  }
+    "name": "{{NAME}}",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "serve": "vite preview"
+    },
+    "devDependencies": {
+        "@types/enigma.js": "^2.2.2",
+        "@types/qlik-engineapi": "^12.67.10",
+        "postcss": "^8.4.0",
+        "postcss-load-config": "^3.1.0",
+        "postcss-preset-env": "^7.0.1",
+        "typescript": "^4.3.2",
+        "vite": "^2.6.4"
+    },
+    "dependencies": {
+        "@nebula.js/sn-bar-chart": "^1.12.12",
+        "@nebula.js/stardust": "^2.2.0",
+        "enigma.js": "^2.7.3",
+        "qlik-saas-web-auth": "^0.0.2"
+    }
 }

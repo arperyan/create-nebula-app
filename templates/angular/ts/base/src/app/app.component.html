@@ -1,0 +1,12 @@
+<main>
+  <div *ngIf="isLoading; else elseBlock">
+    <spinner></spinner>
+  </div>
+  <ng-template #elseBlock>
+    <nebulaselection
+      [nebula]="nebulaInstance"
+      [app]="qlikInstance"
+    ></nebulaselection>
+    <nebulabar [nebula]="nebulaInstance" [app]="qlikInstance"></nebulabar>
+  </ng-template>
+</main>
