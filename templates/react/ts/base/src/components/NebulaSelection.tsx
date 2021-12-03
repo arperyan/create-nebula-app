@@ -12,7 +12,7 @@ const NebulaSelection: FC<{ nebula: NebulaChart }> = ({ nebula }) => {
         run();
     }, [nebula]);
 
-    return <div className="toolbar" ref={elementRef}></div>;
+    return <div ref={elementRef}></div>;
 };
 
 export default NebulaSelection;

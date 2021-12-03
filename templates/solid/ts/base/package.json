@@ -1,0 +1,29 @@
+{
+    "name": "{{NAME}}",
+    "version": "0.0.0",
+    "description": "",
+    "scripts": {
+        "start": "vite",
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^4.4.3",
+        "vite": "^2.5.7",
+        "vite-plugin-solid": "^2.0.3"
+    },
+    "dependencies": {
+        "@nebula.js/sn-bar-chart": "^1.12.15",
+        "@nebula.js/stardust": "^2.2.0",
+        "@types/enigma.js": "^2.2.2",
+        "@types/qlik-engineapi": "^12.67.10",
+        "enigma.js": "^2.7.3",
+        "postcss": "^8.4.4",
+        "postcss-load-config": "^3.1.0",
+        "postcss-preset-env": "^7.0.1",
+        "qlik-saas-web-auth": "^0.0.2",
+        "solid-js": "^1.1.3"
+    }
+}

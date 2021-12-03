@@ -11,4 +11,4 @@
     });
 </script>
 
-<div class="toolbar" bind:this={element} />
+<div bind:this={element} />
