@@ -49,7 +49,7 @@ Next steps:
 
 ▶️ cd ${answers.name}
 ▶️ npm install
-▶️ update the src/config.sample file 
+▶️ update the config.sample and data.sample file
 ▶️ npm run dev
 `);
 })();
