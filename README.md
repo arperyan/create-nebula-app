@@ -7,24 +7,21 @@ npx create-nebula-app
 ```
 
 ## Frameworks:
-Svelte
-React
-Vue
-Solid
-Angular
+Svelte <br>
+React  <br>
+Vue  <br>
+Solid <br>
+Angular <br>
 Vanilla JS - not a framweork
 
 ## Language:
-JaveScript
-TypeScript
+JaveScript <br>
+TypeScript <br>
 
 ## Environment:
-SaaS
-Desktop
-Enterprise
+SaaS <br>
+Desktop <br>
+Enterprise <br> <br>
 
 
 These projects are not production complete. They are designed as lightweight projects that can be used to quickly prototype a new feature.
-
-
-```
