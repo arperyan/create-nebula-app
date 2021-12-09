@@ -14,8 +14,5 @@
         "inquirer": "^8.2.0",
         "ncp": "^2.0.0",
         "shelljs": "^0.8.4"
-    },
-    "publishConfig": {
-        "registry": "https://www.npmjs.com/package/create-nebula-app"
     }
 }
