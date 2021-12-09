@@ -12,7 +12,7 @@ React  <br>
 Vue  <br>
 Solid <br>
 Angular <br>
-Vanilla JS - not a framweork
+Vanilla JS - not a framework
 
 ## Language:
 JaveScript <br>
