@@ -1,6 +1,6 @@
 {
     "name": "create-nebula-app",
-    "version": "1.0.0",
+    "version": "0.0.2",
     "description": "Create Nebula apps",
     "main": "src/index.js",
     "bin": "bin/create-nebula-app.js",
