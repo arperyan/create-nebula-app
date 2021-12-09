@@ -18,10 +18,8 @@ const templateFile = (fileName, replacements) => {
 //   - name: Name of the project
 //   - framework: Name of the framework
 //   - language: Language of the project
-//   - css: CSS framework
-//   - port: Port to run the project on
 
-module.exports = async ({ language, framework, name, environment }) => {
+module.exports = async ({ language, framework, name, environment, virtualproxy, virtualproxyname }) => {
     const lang = language === "typescript" ? "ts" : "js";
 
     const replacements = {
@@ -29,16 +27,12 @@ module.exports = async ({ language, framework, name, environment }) => {
         FRAMEWORK: framework,
         SAFE_NAME: name.replace(/-/g, "_").trim(),
         LANGUAGE: language === "typescript" ? "TypeScript" : "JavaScript",
+        VP: virtualproxy ? `server: {  open: "/${virtualproxyname}" }` : "",
     };
-
+    console.log(replacements.VP);
     await ncp(path.join(__dirname, `../templates/${framework}/base`), name);
     await ncp(path.join(__dirname, `../templates/${framework}/${lang}/base`), name);
     await ncp(path.join(__dirname, `../templates/${framework}/${lang}/${environment}`), name);
-
-    // replacements.CSS_EXTENSION = tailwind ? "scss" : "css";
-    // replacements.CONTAINER = tailwind
-    //   ? "mt-10 text-3xl mx-auto max-w-6xl"
-    //   : "container";
 
     glob.sync(`${name}/**/*`).forEach((file) => {
         if (fs.lstatSync(file).isFile()) {

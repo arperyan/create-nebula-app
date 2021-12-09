@@ -8,4 +8,5 @@ export default defineConfig({
         polyfillDynamicImport: false,
     },
     css: { postcss: "./postcss.config.cjs" },
+    {{VP}}
 });

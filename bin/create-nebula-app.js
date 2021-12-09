@@ -34,8 +34,23 @@ const templates = fs.readdirSync(path.join(__dirname, "../templates")).sort();
             type: "list",
             message: "Qlik Env:",
             name: "environment",
-            choices: ["saas", "desktop"],
+            choices: ["saas", "desktop", "enterprise"],
             default: "saas",
+        },
+        {
+            type: "confirm",
+            message: "Virtual Proxy?",
+            name: "virtualproxy",
+            when: (answers) => answers.environment === "enterprise",
+            choices: ["y", "N"],
+            default: "N",
+        },
+        {
+            type: "input",
+            message: "Virtual Proxy name:",
+            name: "virtualproxyname",
+            when: (answers) => answers.virtualproxy,
+            default: "abc",
         },
     ]);
 
