@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 import enigma from "enigma.js";
 import schema from "enigma.js/schemas/12.67.2.json";
 import { config } from "../config.sample";
-import { QlikEnterpriseConnection } from "./app/qlik-enterprise-connection";
-import { NebulaCharts } from "./nebulaCharts";
+import { QlikEnterpriseConnection } from "./util/qlik-enterprise-connection";
+import { NebulaCharts } from "./util/nebulaCharts";
 import type { NebulaChart } from "./types";
 
 @Component({

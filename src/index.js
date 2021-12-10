@@ -22,14 +22,22 @@ const templateFile = (fileName, replacements) => {
 module.exports = async ({ language, framework, name, environment, virtualproxy, virtualproxyname }) => {
     const lang = language === "typescript" ? "ts" : "js";
 
+    let virtual;
+
+    if (virtualproxy && framework !== "angular") {
+        virtual = `server: {  open: "/${virtualproxyname}" }`;
+    } else if (virtualproxy && framework === "angular") {
+        virtual = virtualproxyname;
+    }
+
     const replacements = {
         NAME: name,
         FRAMEWORK: framework,
         SAFE_NAME: name.replace(/-/g, "_").trim(),
         LANGUAGE: language === "typescript" ? "TypeScript" : "JavaScript",
-        VP: virtualproxy ? `server: {  open: "/${virtualproxyname}" }` : "",
+        VP: virtual,
     };
-    console.log(replacements.VP);
+
     await ncp(path.join(__dirname, `../templates/${framework}/base`), name);
     await ncp(path.join(__dirname, `../templates/${framework}/${lang}/base`), name);
     await ncp(path.join(__dirname, `../templates/${framework}/${lang}/${environment}`), name);

@@ -3,7 +3,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [
+        "enigma.js",
+        "qlik-engineapi"
+    ],
   },
   "files": [
     "src/main.ts",
