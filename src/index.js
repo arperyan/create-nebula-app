@@ -1,50 +1,80 @@
 const util = require("util");
 const fs = require("fs");
-const path = require("path");
 const glob = require("glob");
+const degit = require("degit");
 
+const baseRepository = "arperyan/create-nebula-app/templates";
 const ncp = util.promisify(require("ncp").ncp);
 
 const templateFile = (fileName, replacements) => {
-    let contents = fs.readFileSync(fileName, "utf8").toString();
-    Object.keys(replacements).forEach((key) => {
-        contents = contents.replace(new RegExp(`(\{\{${key}\}\}|\{\{ ${key} \}\})`, "g"), replacements[key]);
-    });
-    fs.writeFileSync(fileName, contents);
+  let contents = fs.readFileSync(fileName, "utf8").toString();
+
+  Object.keys(replacements).forEach((key) => {
+    contents = contents.replace(
+      new RegExp(`(\{\{${key}\}\}|\{\{ ${key} \}\})`, "g"),
+      replacements[key]
+    );
+  });
+
+  fs.writeFileSync(fileName, contents);
 };
 
-// Options:
-//   - type: "Application", "Library", "Server"
-//   - name: Name of the project
-//   - framework: Name of the framework
-//   - language: Language of the project
+const processAnswers = async ({
+  language,
+  framework,
+  name,
+  environment,
+  virtualProxy,
+  virtualProxyName,
+}) => {
+  const templateRepository = `${baseRepository}/${framework}/${language}`;
 
-module.exports = async ({ language, framework, name, environment, virtualproxy, virtualproxyname }) => {
-    const lang = language === "typescript" ? "ts" : "js";
+  const baseEmitter = degit(`${templateRepository}/base`, {
+    cache: true,
+    force: true,
+    verbose: false,
+  });
 
-    let virtual;
+  const emitter = degit(`${templateRepository}/${environment}`, {
+    cache: true,
+    force: true,
+    verbose: false,
+  });
 
-    if (virtualproxy && framework !== "angular") {
-        virtual = `server: {  open: "/${virtualproxyname}" }`;
-    } else if (virtualproxy && framework === "angular") {
-        virtual = virtualproxyname;
-    }
+  let virtual;
 
-    const replacements = {
-        NAME: name,
-        FRAMEWORK: framework,
-        SAFE_NAME: name.replace(/-/g, "_").trim(),
-        LANGUAGE: language === "typescript" ? "TypeScript" : "JavaScript",
-        VP: virtual,
-    };
+  if (virtualProxy && framework !== "angular")
+    virtual = `server: {  open: "/${virtualProxyName}" }`;
+  if (virtualProxy && framework === "angular") virtual = virtualProxyName;
 
-    await ncp(path.join(__dirname, `../templates/${framework}/base`), name);
-    await ncp(path.join(__dirname, `../templates/${framework}/${lang}/base`), name);
-    await ncp(path.join(__dirname, `../templates/${framework}/${lang}/${environment}`), name);
+  const replacements = {
+    NAME: name,
+    FRAMEWORK: framework,
+    SAFE_NAME: name.replace(/-/g, "_").trim(),
+    LANGUAGE: language === "ts" ? "TypeScript" : "JavaScript",
+    VP: virtual,
+  };
 
-    glob.sync(`${name}/**/*`).forEach((file) => {
+  await baseEmitter.clone(`./${name}/base`);
+
+  emitter
+    .clone(`./${name}/${environment}`)
+    .then(async () => {
+      await ncp(`./${name}/base`, name);
+      await ncp(`./${name}/${environment}`, name);
+
+      glob.sync(`${name}/**/*`).forEach((file) => {
         if (fs.lstatSync(file).isFile()) {
-            templateFile(file, replacements);
+          templateFile(file, replacements);
         }
+      });
+
+      fs.rmSync(`./${name}/base`, { recursive: true, force: true });
+      fs.rmSync(`./${name}/${environment}`, { recursive: true, force: true });
+    })
+    .catch((e) => {
+      console.log(e);
     });
 };
+
+module.exports = processAnswers;

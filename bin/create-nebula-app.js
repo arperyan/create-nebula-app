@@ -1,64 +1,76 @@
 #!/usr/bin/env node
 const inquirer = require("inquirer");
-const shell = require("shelljs");
-const fs = require("fs");
-const path = require("path");
 
 const builder = require("../src/index");
 
-const templates = fs.readdirSync(path.join(__dirname, "../templates")).sort();
+const choices = {
+  yesNo: ["y", "N"],
+  templates: ["Angular", "React", "Solid", "Svelte", "Vanilla", "Vue"],
+  languages: ["JavaScript (WIP)", "TypeScript"],
+  qlikEnvironments: ["SaaS", "Desktop", "Enterprise (QSEoW)"],
+};
 
 (async function () {
-    const answers = await inquirer.prompt([
-        {
-            type: "input",
-            message: "Pick the name of your app:",
-            name: "name",
-            default: "my-app",
-        },
-        {
-            type: "list",
-            message: "Framework:",
-            name: "framework",
-            choices: templates,
-            default: "svelte",
-        },
-        {
-            type: "list",
-            message: "Language:",
-            name: "language",
-            choices: ["javascript (WIP)", "typescript"],
-            default: "javascript",
-        },
-        {
-            type: "list",
-            message: "Qlik Env:",
-            name: "environment",
-            choices: ["saas", "desktop", "enterprise"],
-            default: "saas",
-        },
-        {
-            type: "confirm",
-            message: "Virtual Proxy?",
-            name: "virtualproxy",
-            when: (answers) => answers.environment === "enterprise",
-            choices: ["y", "N"],
-            default: "N",
-        },
-        {
-            type: "input",
-            message: "Virtual Proxy name:",
-            name: "virtualproxyname",
-            when: (answers) => answers.virtualproxy,
-            default: "abc",
-        },
-    ]);
+  console.log("Some short description here <---");
+  console.log();
 
-    builder({
-        ...answers,
-    });
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      message: "Pick the name of your app:",
+      name: "name",
+      default: "my-app",
+    },
+    {
+      type: "list",
+      message: "Framework:",
+      name: "framework",
+      choices: choices.templates,
+      default: "Angular",
+      filter: (a) => a.toLowerCase(),
+    },
+    {
+      type: "list",
+      message: "Language:",
+      name: "language",
+      choices: choices.languages,
+      default: "JavaScript (WIP)",
+      filter: (a) => {
+        if (a == "TypeScript") return "ts";
+        if (a.indexOf("JavaScript") > -1) return "js";
+      },
+    },
+    {
+      type: "list",
+      message: "Qlik Environment:",
+      name: "environment",
+      choices: choices.qlikEnvironments,
+      default: "SaaS",
+      filter: (a) => {
+        if (a == "Enterprise (QSEoW)") return "enterprise";
+        return a.toLowerCase();
+      },
+    },
+    {
+      type: "confirm",
+      message: "Virtual Proxy?",
+      name: "virtualProxy",
+      when: (answers) => answers.environment === "enterprise",
+      choices: choices.yesNo,
+      default: "N",
+    },
+    {
+      type: "input",
+      message: "Virtual Proxy name:",
+      name: "virtualProxyName",
+      when: (answers) => answers.virtualProxy,
+      default: "abc",
+    },
+  ]);
 
-    shell.echo(`Your '${answers.name}' project is ready to go.
+  builder(answers);
+
+  console.log(`Your '${answers.name}' project is ready to go.
 
 Next steps:
 
