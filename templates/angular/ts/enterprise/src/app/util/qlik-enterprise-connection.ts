@@ -39,7 +39,7 @@ export class QlikEnterpriseConnection {
         const docId = appId ? appId : "engineData";
 
         const eUrl = this.host.startsWith("http") ? this.host.replace(/^https?:\/\//, "wss://").replace(/^http?:\/\//, "ws://") : `wss:${this.host}`;
-        const vp = this.virtualProxy ? `${this.virtualProxy}/` : "/";
+        const vp = this.virtualProxy ? `/${this.virtualProxy}/` : "/";
         this.enigmaConfig = {
             Promise: Promise,
             schema: this.schema,
